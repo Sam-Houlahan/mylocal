@@ -54,6 +54,8 @@
     "ava": "^0.21.0",
     "body-parser": "^1.17.2",
     "express": "^4.15.3",
-    "superagent": "^3.5.2"
+    "react-here-maps": "^0.4.0",
+    "superagent": "^3.5.2",
+    "webpack-livereload-plugin": "^0.11.0"
   }
 }
