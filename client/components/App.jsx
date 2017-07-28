@@ -10,10 +10,9 @@ class App extends React.Component {
 
   render () {
     return (
-      <div>
-        <h1>My Local</h1>
-        <Map />
-      </div>
+    <div>
+    <h1> My Local</h1>
+    </div>
     )
   }
 }
