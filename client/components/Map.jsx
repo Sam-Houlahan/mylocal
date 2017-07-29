@@ -1,5 +1,4 @@
 import React from 'react'
-import {geolocated} from 'react-geolocated'
 import {getLocations} from '../api'
 
 export default class Map extends React.Component {
@@ -32,7 +31,7 @@ export default class Map extends React.Component {
     const behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map))
     const ui = H.ui.UI.createDefault(map, defaultLayers)
 
-    
+
 
     navigator.geolocation.getCurrentPosition(
       (position) => {
