@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
 })
 
 
-function showNotification() {
+export default function showNotification() {
   document.getElementById('debug').innerHTML += "<br>showing"
   Notification.requestPermission(function(result) {
     if (result === 'granted') {
@@ -28,9 +28,7 @@ function showNotification() {
   });
 }
 
-
-
-if("serviceWorker" in navigator) {
+if ('serviceWorker' in navigator) {
   document.getElementById('debug').innerHTML += "<br>sw enabled"
   navigator.serviceWorker.register('sw.js').then(function(reg) {
     document.getElementById('debug').innerHTML += "<br>registered"

@@ -27,11 +27,10 @@ export default class Map extends React.Component {
     })
 
     const defaultLayers = platform.createDefaultLayers()
-    const map = new H.Map(this.refs.map, defaultLayers.normal.map);
+    const map = new H.Map(this.refs.map, defaultLayers.normal.map)
     const behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map))
     const ui = H.ui.UI.createDefault(map, defaultLayers)
-
-
+    
     navigator.geolocation.getCurrentPosition(
       (position) => {
         this.setState({
@@ -42,9 +41,7 @@ export default class Map extends React.Component {
           }
         })
         this.showUserLocation(map)
-      }
-    )
-    getLocations(-36.848461, 174.763336)
+    getLocations (position.coords.latitude, position.coords.longitude)
       .then(res => {
         this.setState({
           locations: res.body.results.items
@@ -54,6 +51,8 @@ export default class Map extends React.Component {
         this.addInfoBubbles(map, ui)
         this.moveMapToAuckland(map)
       })
+      }
+    )
   }
 
   moveMapToAuckland (map) {
@@ -84,14 +83,19 @@ export default class Map extends React.Component {
   }
 
   showUserLocation (map) {
+    const svgMarkup = '<svg  width="20" height="20" xmlns="http://www.w3.org/2000/svg">' +
+    '<circle cx="10" cy="10" r="5" stroke="red" stroke-width="1" fill="red" />' +
+    '</svg>'
+    const usersIcon= new H.map.Icon(svgMarkup)
     const userLocation = new H.map.Marker({
       lat: this.state.userLocation.latitude,
       lng: this.state.userLocation.longitude
-    })
+    }, {icon: usersIcon})
     map.addObject(userLocation)
   }
 
   render () {
+    console.log(this.state.locations)
     return (
         <div className='Map' ref='map'>
         </div>
