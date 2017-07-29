@@ -10,10 +10,34 @@ document.addEventListener('DOMContentLoaded', () => {
   )
 })
 
-Notification.requestPermission().then(function(permission) {
-  console.log(permission)
-  console.log("Notification permission granted")
-  if (Notification.permission === "granted") {
-    var notification = new Notification("Hi there!");
-  }
-});
+function showNotification() {
+  document.getElementById('debug').innerHTML += "<br>showing"
+  Notification.requestPermission(function(result) {
+    if (result === 'granted') {
+      document.getElementById('debug').innerHTML += "<br>granted"
+      navigator.serviceWorker.ready.then(function(registration) {
+        registration.showNotification('Vibration Sample', {
+          body: 'Buzz! Buzz!',
+          icon: '../images/touch/chrome-touch-icon-192x192.png',
+          vibrate: [200, 100, 200, 100, 200, 100, 200],
+          tag: 'vibration-sample'
+        });
+      });
+    }
+  });
+}
+
+
+
+if("serviceWorker" in navigator) {
+  document.getElementById('debug').innerHTML += "<br>sw enabled"
+  navigator.serviceWorker.register('sw.js').then(function(reg) {
+    document.getElementById('debug').innerHTML += "<br>registered"
+    console.log("registered")
+    showNotification()
+  }).catch(function(error) {
+    // registration failed
+      document.getElementById('debug').innerHTML += "<br>failed:" + error
+    console.log('Registration failed with ' + error);
+  })
+}
