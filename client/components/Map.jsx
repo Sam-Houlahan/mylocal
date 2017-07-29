@@ -10,6 +10,7 @@ export default class Map extends React.Component {
     }
     this.moveMapToAuckland = this.moveMapToAuckland.bind(this)
     this.addMarkersToMap = this.addMarkersToMap.bind(this)
+    this.handleClick = this.handleClick.bind(this)
   }
 
   componentDidMount () {
@@ -21,25 +22,30 @@ export default class Map extends React.Component {
     })
   }
 
-  handleScriptCreate() {
-    this.setState({ scriptLoaded: false })
-}
-  handleScriptError () {
-    this.setState({ scriptError: true })
-}
-  handleScriptLoad () {
-    this.setState({ scriptLoaded: true })
-}
-
-  moveMapToAuckland (map){
+  moveMapToAuckland (map) {
     map.setCenter({lat: -36.848461, lng: 174.763336})
     map.setZoom(14)
   }
+  handleClick (e) {
+    console.log(e)
+  }
 
   addMarkersToMap (map) {
+    var animatedSvg =
+   '<div><svg width="20" height="20" ' +
+   'xmlns="http://www.w3.org/2000/svg" ' +
+   'style="transform:translate(-10px, -10px)">' +
+   '<circle cx="10" cy="10" r="5" stroke="#000" stroke-width="1" fill="#ff00ff" />'+
+   '</svg><div>'
+
     return this.state.locations.map(location => {
-      const marker = new H.map.Marker({lat: location.position[0], lng: location.position[1]})
-      map.addObject(marker)
+      const marker = ({lat: location.position[0], lng: location.position[1]})
+      var icon = new window.H.map.DomIcon(animatedSvg, {
+        onAttach: element => {
+          element.addEventListener('click', () => this.handleClick(location))
+        }
+      })
+      map.addObject(new window.H.map.DomMarker(marker, {icon: icon}))
     })
   }
 
