@@ -16,10 +16,20 @@ export default class Map extends React.Component {
     getLocations()
     .then(res => {
       this.setState({
-        locations: res.body
+        locations: res.body.results.items
       })
     })
   }
+
+  handleScriptCreate() {
+    this.setState({ scriptLoaded: false })
+}
+  handleScriptError () {
+    this.setState({ scriptError: true })
+}
+  handleScriptLoad () {
+    this.setState({ scriptLoaded: true })
+}
 
   moveMapToAuckland (map){
     map.setCenter({lat: -36.848461, lng: 174.763336})
@@ -27,16 +37,13 @@ export default class Map extends React.Component {
   }
 
   addMarkersToMap (map) {
-    const locations = [{ lat: -36.848461, lng: 174.763336} ,{lat:74.348047,lng:31.569907},{lat:74.307826,lng:31.573289}, {lat:74.330023,lng:31.558144}]
-    return locations.map (location => {
-      const marker = new H.map.Marker(location)
+    return this.state.locations.map(location => {
+      const marker = new H.map.Marker({lat: location.position[0], lng: location.position[1]})
       map.addObject(marker)
     })
   }
 
-
   render () {
-    console.log(this.state)
     const platform = new H.service.Platform({
       app_id: 'WQcyXkJedeP70Lnay6rs',
       app_code: 'EnkpwctAt48m5uvPDAaovA',
@@ -44,13 +51,13 @@ export default class Map extends React.Component {
       useHTTPS: false
   })
     const defaultLayers = platform.createDefaultLayers()
-    const map = new H.Map(document.getElementById('map'),
+    const map = new H.Map(document.getElementById('app'),
     defaultLayers.normal.map);
     const behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map))
     const ui = H.ui.UI.createDefault(map, defaultLayers)
 
     return (
-      <div>
+        <div>
         {this.addMarkersToMap(map)}
         {this.moveMapToAuckland(map)}
         </div>
