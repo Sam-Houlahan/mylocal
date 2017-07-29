@@ -10,6 +10,7 @@ export default class Map extends React.Component {
     }
     this.moveMapToAuckland = this.moveMapToAuckland.bind(this)
     this.addMarkersToMap = this.addMarkersToMap.bind(this)
+    this.addInfoBubbles = this.addInfoBubbles.bind(this)
   }
 
   componentDidMount () {
@@ -21,25 +22,30 @@ export default class Map extends React.Component {
     })
   }
 
-  handleScriptCreate() {
-    this.setState({ scriptLoaded: false })
-}
-  handleScriptError () {
-    this.setState({ scriptError: true })
-}
-  handleScriptLoad () {
-    this.setState({ scriptLoaded: true })
-}
-
-  moveMapToAuckland (map){
+  moveMapToAuckland (map) {
     map.setCenter({lat: -36.848461, lng: 174.763336})
     map.setZoom(14)
   }
 
-  addMarkersToMap (map) {
+  addInfoBubbles (map, ui) {
+    const group = new H.map.Group()
+    map.addObject(group)
+    group.addEventListener('tap', function (evt) {
+      const bubble =  new H.ui.InfoBubble(evt.target.getPosition(), {
+        content: evt.target.getData()
+      })
+      ui.addBubble(bubble)
+    }, false)
+    this.addMarkersToMap(group, this.state.locations)
+  }
+
+  addMarkersToMap (group, location) {
     return this.state.locations.map(location => {
+      const html = `<div>Title: ${location.title}</div>` + `<br/><div>Category: ${location.category.title}</div>`+
+      `<br/> <div>Location: ${location.vicinity}</div>`
       const marker = new H.map.Marker({lat: location.position[0], lng: location.position[1]})
-      map.addObject(marker)
+      marker.setData(html)
+      group.addObject(marker)
     })
   }
 
@@ -58,8 +64,8 @@ export default class Map extends React.Component {
 
     return (
         <div>
-        {this.addMarkersToMap(map)}
-        {this.moveMapToAuckland(map)}
+          {this.moveMapToAuckland(map)}
+        {this.addInfoBubbles(map, ui)}
         </div>
     )
   }
