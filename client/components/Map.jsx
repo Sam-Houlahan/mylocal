@@ -8,7 +8,7 @@ export default class Map extends React.Component {
       userLocation:
       {
         latitude: 0,
-        longitude: 0,
+        longitude: 0
       },
       locations: []
     }
@@ -27,12 +27,10 @@ export default class Map extends React.Component {
     })
 
     const defaultLayers = platform.createDefaultLayers()
-    const map = new H.Map(this.refs.map, defaultLayers.normal.map);
+    const map = new H.Map(this.refs.map, defaultLayers.normal.map)
     const behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map))
     const ui = H.ui.UI.createDefault(map, defaultLayers)
-
-
-
+    
     navigator.geolocation.getCurrentPosition(
       (position) => {
         console.log('position', position)
@@ -53,7 +51,7 @@ export default class Map extends React.Component {
         })
       })
       .then(() => {
-        this.addInfoBubbles(map,ui)
+        this.addInfoBubbles(map, ui)
         this.moveMapToAuckland(map)
       })
   }
@@ -85,11 +83,15 @@ export default class Map extends React.Component {
     })
   }
 
-  showUserLocation(map) {
+  showUserLocation (map) {
+    const svgMarkup = '<svg  width="20" height="20" xmlns="http://www.w3.org/2000/svg">' +
+    '<circle cx="10" cy="10" r="5" stroke="red" stroke-width="1" fill="red" />' +
+    '</svg>'
+    const bearsIcon = new H.map.Icon(svgMarkup)
     const userLocation = new H.map.Marker({
       lat: this.state.userLocation.latitude,
       lng: this.state.userLocation.longitude
-    })
+    }, {icon: bearsIcon})
     console.log(this.state.userLocation)
     map.addObject(userLocation)
   }
