@@ -47,6 +47,7 @@ function distanceBetween(positionA, positionB) {
 
 function checkForProximity() {
     console.log(userPosition)
+    document.getElementById("debug").innerHTML += userPosition.latitude + "," + userPosition.longitude + "<br />"
 
     for(var i = 0; i < locations.length; i++) {
         var locationPos = {
@@ -103,6 +104,7 @@ var refresher
 getLocations().then(function(res) {
     locations = res.body.results.items
 }).then(function() {
+    refreshUserPosition()
     refresher = setInterval(refreshUserPosition, 10000)
 })
 
