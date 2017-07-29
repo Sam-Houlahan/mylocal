@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom'
 
 import App from './components/App'
 
+import {showNotification} from './notify.js'
+
 document.addEventListener('DOMContentLoaded', () => {
   ReactDOM.render(
     <App />,
@@ -10,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
   )
 })
 
-
+/*
 function showNotification() {
   document.getElementById('debug').innerHTML += "<br>showing"
   Notification.requestPermission(function(result) {
@@ -27,7 +29,7 @@ function showNotification() {
     }
   });
 }
-
+*/
 
 
 if("serviceWorker" in navigator) {
