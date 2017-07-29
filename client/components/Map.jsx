@@ -1,6 +1,5 @@
 import React from 'react'
-import {geolocated} from 'react-geolocated'
-import {getLocations} from '../api'
+import {getLocations, getUserLocation} from '../api'
 
 export default class Map extends React.Component {
   constructor (props) {
@@ -9,7 +8,7 @@ export default class Map extends React.Component {
       userLocation:
       {
         latitude: 0,
-        longitude: 0,
+        longitude: 0
       },
       locations: []
     }
@@ -32,29 +31,26 @@ export default class Map extends React.Component {
     const behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map))
     const ui = H.ui.UI.createDefault(map, defaultLayers)
 
-    
-
     navigator.geolocation.getCurrentPosition(
       (position) => {
-        console.log('position', position)
         this.setState({
-            userLocation:
-            {
-              latitude: position.coords.latitude,
-              longitude: position.coords.longitude
-            }
+          userLocation:
+          {
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude
+          }
         })
         this.showUserLocation(map)
       }
     )
-    getLocations()
+    getLocations(-36.848461, 174.763336)
       .then(res => {
         this.setState({
           locations: res.body.results.items
         })
       })
       .then(() => {
-        this.addInfoBubbles(map,ui)
+        this.addInfoBubbles(map, ui)
         this.moveMapToAuckland(map)
       })
   }
@@ -86,12 +82,11 @@ export default class Map extends React.Component {
     })
   }
 
-  showUserLocation(map) {
+  showUserLocation (map) {
     const userLocation = new H.map.Marker({
       lat: this.state.userLocation.latitude,
       lng: this.state.userLocation.longitude
     })
-    console.log(this.state.userLocation)
     map.addObject(userLocation)
   }
 
