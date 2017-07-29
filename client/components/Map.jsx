@@ -62,6 +62,7 @@ export default class Map extends React.Component {
     const group = new H.map.Group()
     map.addObject(group)
     group.addEventListener('tap', function (evt) {
+      console.log('test')
       const bubble =  new H.ui.InfoBubble(evt.target.getPosition(), {
         content: evt.target.getData()
       })
