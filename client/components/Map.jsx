@@ -81,10 +81,12 @@ export default class Map extends React.Component {
   }
 
   showUserLocation(map) {
+    const svgMarkup = '<svg  width="20" height="20" xmlns="http://www.w3.org/2000/svg">' + '<circle cx="10" cy="10" r="5" stroke="red" stroke-width="1" fill="red" />' +'</svg>'
+    const bearsIcon = new H.map.Icon(svgMarkup)
     const userLocation = new H.map.Marker({
       lat: this.state.userLocation.latitude,
       lng: this.state.userLocation.longitude
-    })
+    }, {icon: bearsIcon})
     console.log(this.state.userLocation)
     map.addObject(userLocation)
   }
