@@ -4,8 +4,7 @@ var CACHE_NAME = 'cache1';
 var urlsToCache = [
   '/bundle.js',
   '/index.html',
-  'main.css',
-  '/sw.js'
+  '/main.css'
 ];
 
 self.addEventListener('install', function(event) {

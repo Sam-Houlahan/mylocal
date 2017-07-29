@@ -1,3 +1,8 @@
+body {
+    box-sizing: border-box;
+    font-family: sans-serif;
+}
+
 .Map {
   height: 600px;
   width: 100%;

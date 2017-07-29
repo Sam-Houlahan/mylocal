@@ -1,6 +1,5 @@
 import React from 'react'
 import {getLocations} from '../api'
-
 import Map from './Map'
 
 class App extends React.Component {
@@ -23,7 +22,7 @@ class App extends React.Component {
   render () {
     return (
       <div>
-        <h1>My Local</h1>
+        <h1>MyLocal</h1>
         <Map />
       </div>
     )

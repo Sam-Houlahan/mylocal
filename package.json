@@ -1,25 +1,20 @@
 {
-  "name": "react-test",
+  "name": "sw",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "start": "node server & webpack --watch",
-    "dev": "nodemon --watch server server/index & webpack --watch",
-    "test": "ava -v 'test/*.test.js'"
+    "start": "node server.js & webpack --watch",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Sam-Houlahan/react-test.git"
+    "url": "git+https://github.com/justinvos/sw.git"
   },
-  "ava": {
-    "require": "babel-register",
-    "babel": "inherit"
-  },
-  "author": "Sam Houlahan",
+  "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Sam-Houlahan/react-test/issues"
+    "url": "https://github.com/justinvos/sw/issues"
   },
   "babel": {
     "presets": [
@@ -28,21 +23,8 @@
       "stage-0"
     ]
   },
-  "homepage": "https://github.com/Sam-Houlahan/react-test#readme",
-  "devDependencies": {
-    "eslint": "^3.3.1",
-    "eslint-config-standard": "^5.3.5",
-    "eslint-plugin-promise": "^2.0.1",
-    "eslint-plugin-react": "^6.1.2",
-    "eslint-plugin-standard": "^2.0.0",
-    "enzyme": "^2.9.1",
-    "jsdom": "^11.1.0",
-    "nodemon": "^1.11.0",
-    "supertest": "^3.0.0",
-    "webpack-livereload-plugin": "^0.11.0"
-  },
+  "homepage": "https://github.com/justinvos/sw#readme",
   "dependencies": {
-    "ava": "^0.21.0",
     "babel-core": "^6.21.0",
     "babel-loader": "^6.2.10",
     "babel-preset-es2015": "^6.18.0",
@@ -51,13 +33,9 @@
     "babel-register": "^6.18.0",
     "body-parser": "^1.17.2",
     "express": "^4.15.3",
-    "react-geolocated": "^2.0.0",
     "react": "^15.6.1",
-    "react-dom": "^15.5.4",
-    "react-here-maps": "^0.4.0",
-    "react-test-renderer": "^15.5.4",
+    "react-dom": "^15.6.1",
     "superagent": "^3.5.2",
-    "webpack": "^1.14.0",
-    "webpack-dev-server": "^1.14.1"
+    "webpack": "^1.14.0"
   }
 }

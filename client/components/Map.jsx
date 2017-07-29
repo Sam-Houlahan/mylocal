@@ -1,5 +1,5 @@
 import React from 'react'
-import {getLocations} from '../api'
+import {getLocations, getUserLocation} from '../api'
 
 export default class Map extends React.Component {
   constructor (props) {
@@ -8,7 +8,7 @@ export default class Map extends React.Component {
       userLocation:
       {
         latitude: 0,
-        longitude: 0
+        longitude: 0,
       },
       locations: []
     }
@@ -27,23 +27,20 @@ export default class Map extends React.Component {
     })
 
     const defaultLayers = platform.createDefaultLayers()
-    const map = new H.Map(this.refs.map, defaultLayers.normal.map)
+    const map = new H.Map(this.refs.map, defaultLayers.normal.map);
     const behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map))
     const ui = H.ui.UI.createDefault(map, defaultLayers)
-    
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-        console.log('position', position)
-        this.setState({
-            userLocation:
-            {
-              latitude: position.coords.latitude,
-              longitude: position.coords.longitude
-            }
+
+
+    var thisComp = this
+    getUserLocation(function(position) {
+        console.log('User position:', position.latitude, position.longitude)
+        thisComp.setState({
+            userLocation: position
         })
-        this.showUserLocation(map)
-      }
-    )
+        thisComp.showUserLocation(map)
+    })
+
     getLocations()
       .then(res => {
         this.setState({
@@ -51,7 +48,7 @@ export default class Map extends React.Component {
         })
       })
       .then(() => {
-        this.addInfoBubbles(map, ui)
+        this.addInfoBubbles(map,ui)
         this.moveMapToAuckland(map)
       })
   }
@@ -83,15 +80,11 @@ export default class Map extends React.Component {
     })
   }
 
-  showUserLocation (map) {
-    const svgMarkup = '<svg  width="20" height="20" xmlns="http://www.w3.org/2000/svg">' +
-    '<circle cx="10" cy="10" r="5" stroke="red" stroke-width="1" fill="red" />' +
-    '</svg>'
-    const bearsIcon = new H.map.Icon(svgMarkup)
+  showUserLocation(map) {
     const userLocation = new H.map.Marker({
       lat: this.state.userLocation.latitude,
       lng: this.state.userLocation.longitude
-    }, {icon: bearsIcon})
+    })
     console.log(this.state.userLocation)
     map.addObject(userLocation)
   }
