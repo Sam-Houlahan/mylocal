@@ -1,5 +1,5 @@
 import React from 'react'
-import {getLocations, getUserLocation} from '../api'
+import {getLocations} from '../api'
 
 export default class Map extends React.Component {
   constructor (props) {
@@ -30,6 +30,7 @@ export default class Map extends React.Component {
     const map = new H.Map(this.refs.map, defaultLayers.normal.map);
     const behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map))
     const ui = H.ui.UI.createDefault(map, defaultLayers)
+
 
     navigator.geolocation.getCurrentPosition(
       (position) => {
