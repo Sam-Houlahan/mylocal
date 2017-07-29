@@ -1,24 +1,59 @@
 import React from 'react'
-
+import {geolocated} from 'react-geolocated'
 import {getLocations} from '../api'
 
 export default class Map extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
+      userLocation:
+      {
+        latitude: 0,
+        longitude: 0,
+      },
       locations: []
     }
     this.moveMapToAuckland = this.moveMapToAuckland.bind(this)
     this.addMarkersToMap = this.addMarkersToMap.bind(this)
+    this.showUserLocation = this.showUserLocation.bind(this)
   }
 
   componentDidMount () {
-    getLocations()
-    .then(res => {
-      this.setState({
-        locations: res.body.results.items
-      })
+    const platform = new H.service.Platform({
+      app_id: 'WQcyXkJedeP70Lnay6rs',
+      app_code: 'EnkpwctAt48m5uvPDAaovA',
+      useCIT: true,
+      useHTTPS: false
     })
+
+    const defaultLayers = platform.createDefaultLayers()
+    const map = new H.Map(this.refs.map, defaultLayers.normal.map);
+    const behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map))
+    const ui = H.ui.UI.createDefault(map, defaultLayers)
+
+    navigator.geolocation.getCurrentPosition(
+      (position) => {
+        console.log('position', position)
+        this.setState({
+            userLocation:
+            {
+              latitude: position.coords.latitude,
+              longitude: position.coords.longitude
+            }
+        })
+        this.showUserLocation(map)
+      }
+    )
+    getLocations()
+      .then(res => {
+        this.setState({
+          locations: res.body.results.items
+        })
+      })
+      .then(() => {
+        this.addMarkersToMap(map)
+        this.moveMapToAuckland(map)
+      })
   }
 
   handleScriptCreate() {
@@ -43,24 +78,18 @@ export default class Map extends React.Component {
     })
   }
 
-  render () {
-    const platform = new H.service.Platform({
-      app_id: 'WQcyXkJedeP70Lnay6rs',
-      app_code: 'EnkpwctAt48m5uvPDAaovA',
-      useCIT: true,
-      useHTTPS: false
-  })
-    const defaultLayers = platform.createDefaultLayers()
-    const map = new H.Map(document.getElementById('app'),
-    defaultLayers.normal.map);
-    const behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map))
-    const ui = H.ui.UI.createDefault(map, defaultLayers)
+  showUserLocation(map) {
+    const userLocation = new H.map.Marker({
+      lat: this.state.userLocation.latitude,
+      lng: this.state.userLocation.longitude
+    })
+    console.log(this.state.userLocation)
+    map.addObject(userLocation)
+  }
 
+  render () {
     return (
-        <div>
-        {this.addMarkersToMap(map)}
-        {this.moveMapToAuckland(map)}
-        </div>
+        <div className='Map' ref='map' />
     )
   }
 }

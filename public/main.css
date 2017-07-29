@@ -1,4 +1,7 @@
-
+.Map {
+  height: 400px;
+  width: 100%;
+}
 
 .circle-marker {
   width: 20px;
