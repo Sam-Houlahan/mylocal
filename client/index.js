@@ -53,7 +53,7 @@ function checkForProximity() {
             latitude: locations[i].position[0],
             longitude: locations[i].position[1]
         }
-        if(distanceBetween(userPosition, locationPos) <= 200) {
+        if(distanceBetween(userPosition, locationPos) <= 50) {
             var hasShown = false
             for(var s = 0; s < shownLocations.length; s++) {
                 if(locationPos.latitude === shownLocations[s].position.latitude && locationPos.longitude === shownLocations[s].position.longitude) {
