@@ -1,5 +1,6 @@
 import React from 'react'
 import {getLocations} from '../api'
+import {showNotification} from '../utils/notifications'
 
 export default class Map extends React.Component {
   constructor (props) {
@@ -16,6 +17,7 @@ export default class Map extends React.Component {
     this.addMarkersToMap = this.addMarkersToMap.bind(this)
     this.showUserLocation = this.showUserLocation.bind(this)
     this.addInfoBubbles = this.addInfoBubbles.bind(this)
+    this.notifications = this.notifications.bind(this)
   }
 
   componentDidMount () {
@@ -60,6 +62,14 @@ export default class Map extends React.Component {
     map.setZoom(14)
   }
 
+  notifications () {
+    this.state.locations.map(location => {
+      if (location.distance < 500 || true) {
+        showNotification()
+      }
+    })
+  }
+
   addInfoBubbles (map, ui) {
     const group = new H.map.Group()
     map.addObject(group)
@@ -95,7 +105,7 @@ export default class Map extends React.Component {
   }
 
   render () {
-    console.log(this.state.locations)
+      {this.notifications()}
     return (
         <div className='Map' ref='map'>
         </div>
