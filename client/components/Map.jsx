@@ -30,7 +30,7 @@ export default class Map extends React.Component {
     const map = new H.Map(this.refs.map, defaultLayers.normal.map)
     const behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map))
     const ui = H.ui.UI.createDefault(map, defaultLayers)
-
+    
     navigator.geolocation.getCurrentPosition(
       (position) => {
         console.log('position', position)
