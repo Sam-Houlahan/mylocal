@@ -101,12 +101,29 @@ if("serviceWorker" in navigator) {
 
 var refresher
 
+/*
 getLocations().then(function(res) {
     locations = res.body.results.items
 }).then(function() {
     refreshUserPosition()
     refresher = setInterval(refreshUserPosition, 10000)
 })
+*/
+
+var watchID = navigator.geolocation.watchPosition(function(position) {
+    userPosition = {
+        latitude: position.coords.latitude,
+        longitude: position.coords.longitude
+    }
+    console.log("watched")
+    checkForProximity();
+}, function(err) {
+    console.log(err);
+}, {
+    enableHighAccuracy: true,
+    maximumAge: 3000, 
+    timeout: 2700
+});
 
 
 console.log("index.js loaded")
