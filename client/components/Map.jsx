@@ -23,7 +23,7 @@ export default class Map extends React.Component {
       app_id: 'WQcyXkJedeP70Lnay6rs',
       app_code: 'EnkpwctAt48m5uvPDAaovA',
       useCIT: true,
-      useHTTPS: false
+      useHTTPS: true
     })
 
     const defaultLayers = platform.createDefaultLayers()
