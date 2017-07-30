@@ -28,7 +28,6 @@ export default class Map extends React.Component {
     const map = new H.Map(this.refs.map, defaultLayers.normal.map);
     const behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map))
     const ui = H.ui.UI.createDefault(map, defaultLayers)
-
     var thisComp = this
     getUserLocation(function (position) {
       thisComp.setState({
@@ -46,20 +45,18 @@ export default class Map extends React.Component {
       .then(() => {
         this.addInfoBubbles(map, ui)
         this.moveMapToAuckland(map)
-        this.setUpClickListener(map)
       })
   }
 
   moveMapToAuckland (map) {
-    map.setCenter({lat: -36.848461, lng: 174.763336})
-    map.setZoom(14)
+    map.setCenter({lat: this.state.userLocation.latitude, lng: this.state.userLocation.longitude})
+    map.setZoom(17)
   }
 
   addInfoBubbles (map, ui) {
     const group = new H.map.Group()
     map.addObject(group)
     group.addEventListener('tap', function (evt) {
-      console.log('test')
       const bubble =  new H.ui.InfoBubble(evt.target.getPosition(), {
         content: evt.target.getData()
       }
