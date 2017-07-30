@@ -14,7 +14,7 @@ class App extends React.Component {
       <div>
         <div className='navbar'>
           <h1>MyLocal Space</h1>
-          <img className='icon' src='home.png' />
+          <a href='/index.html'><img className='icon' src='home.png'/></a>
         </div>
         <Map />
       </div>
