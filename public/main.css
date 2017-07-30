@@ -1,6 +1,11 @@
+@font-face {
+  font-family: "Montserrat-Regular";
+  src: url("/Montserrat-Regular.ttf")
+}
+
 body {
     box-sizing: border-box;
-    font-family: sans-serif;
+    font-family: "Montserrat-Regular", sans-serif;
 }
 
 .Map {
