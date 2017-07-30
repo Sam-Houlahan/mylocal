@@ -6,10 +6,33 @@
 body {
     box-sizing: border-box;
     font-family: "Montserrat-Regular", sans-serif;
+    margin: 0;
+}
+
+h1 {
+  font-size: 3em;
+  padding-left: 40px;
+}
+
+.icon {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-right: 10px;
+}
+
+.navbar {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: row;
+}
+
+.navbar h1 {
+  flex-grow: 4;
 }
 
 .Map {
-  height: 600px;
+  position: fixed;
+  height: 100%;
   width: 100%;
 }
 
