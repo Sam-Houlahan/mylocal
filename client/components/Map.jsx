@@ -55,7 +55,7 @@ export default class Map extends React.Component {
 
   moveMapToAuckland (map) {
     map.setCenter({lat: -36.848461, lng: 174.763336})
-    map.setZoom(14)
+    map.setZoom(17)
   }
 
   addInfoBubbles (map, ui) {

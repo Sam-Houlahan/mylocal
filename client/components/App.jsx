@@ -22,7 +22,10 @@ class App extends React.Component {
   render () {
     return (
       <div>
-        <h1>MyLocal</h1>
+        <div className='navbar'>
+          <h1>MyLocal Space</h1>
+          <img className='icon' src='home.png' />
+        </div>
         <Map />
       </div>
     )
