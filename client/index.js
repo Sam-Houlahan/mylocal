@@ -86,7 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
 if ("serviceWorker" in navigator) {
   navigator.serviceWorker.register('sw.js').then(function (reg) {
     console.log('Registraion succeeded')
-    notify("Notification Title", "Test body")
+    //notify("Notification Title", "Test body")
   }).catch(function (error) {
     console.log('Registration failed with ' + error);
   })
