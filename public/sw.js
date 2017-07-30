@@ -1,43 +1,40 @@
-console.log("Service Worker loaded")
-
-var CACHE_NAME = 'cache1';
+var CACHE_NAME = 'cache1'
 var urlsToCache = [
   '/bundle.js',
   '/index.html',
   '/main.css'
-];
+]
 
-self.addEventListener('install', function(event) {
+self.addEventListener('install', function (event) {
   event.waitUntil(
     caches.open(CACHE_NAME)
-      .then(function(cache) {
-        console.log('Opened cache');
-        return cache.addAll(urlsToCache);
+      .then(function (cache) {
+        return cache.addAll(urlsToCache)
       })
-  );
-});
+  )
+})
 
-self.addEventListener('fetch', function(event) {
+self.addEventListener('fetch', function (event) {
   event.respondWith(
     caches.match(event.request)
-      .then(function(response) {
+      .then(function (response) {
         if (response) {
-          return response;
+          return response
         }
-        var fetchRequest = event.request.clone();
+        var fetchRequest = event.request.clone()
         return fetch(fetchRequest).then(
-          function(response) {
-            if(!response || response.status !== 200 || response.type !== 'basic') {
-              return response;
+          function (response) {
+            if (!response || response.status !== 200 || response.type !== 'basic') {
+              return response
             }
-            var responseToCache = response.clone();
+            var responseToCache = response.clone()
             caches.open(CACHE_NAME)
-              .then(function(cache) {
-                cache.put(event.request, responseToCache);
-              });
-            return response;
+              .then(function (cache) {
+                cache.put(event.request, responseToCache)
+              })
+            return response
           }
-        );
+        )
       })
-    );
-});
+    )
+})
