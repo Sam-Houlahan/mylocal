@@ -47,7 +47,7 @@ function distanceBetween(positionA, positionB) {
 
 function checkForProximity() {
     console.log(userPosition)
-    document.getElementById("debug").innerHTML += userPosition.latitude + "," + userPosition.longitude + "<br />"
+    //document.getElementById("debug").innerHTML += userPosition.latitude + "," + userPosition.longitude + "<br />"
 
     for(var i = 0; i < locations.length; i++) {
         var locationPos = {
