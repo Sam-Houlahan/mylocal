@@ -49,7 +49,7 @@ export default class Map extends React.Component {
   }
 
   moveMapToAuckland (map) {
-    map.setCenter({lat: this.state.userLocation.latitude, lng: this.state.userLocation.longitude})
+    map.setCenter({lat: -36.848461, lng: 174.763336})
     map.setZoom(17)
   }
 
