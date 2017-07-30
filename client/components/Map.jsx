@@ -24,7 +24,7 @@ export default class Map extends React.Component {
       app_id: 'WQcyXkJedeP70Lnay6rs',
       app_code: 'EnkpwctAt48m5uvPDAaovA',
       useCIT: true,
-      useHTTPS: false
+      useHTTPS: true
     })
     const defaultLayers = platform.createDefaultLayers()
     const map = new H.Map(this.refs.map, defaultLayers.normal.map);
@@ -61,6 +61,7 @@ export default class Map extends React.Component {
     const group = new H.map.Group()
     map.addObject(group)
     group.addEventListener('tap', function (evt) {
+      console.log('test')
       const bubble =  new H.ui.InfoBubble(evt.target.getPosition(), {
         content: evt.target.getData()
       }
