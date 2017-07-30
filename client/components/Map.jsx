@@ -8,14 +8,13 @@ export default class Map extends React.Component {
       userLocation:
       {
         latitude: 0,
-        longitude: 0,
+        longitude: 0
       },
       locations: []
     }
     this.moveMapToAuckland = this.moveMapToAuckland.bind(this)
     this.addMarkersToMap = this.addMarkersToMap.bind(this)
     this.showUserLocation = this.showUserLocation.bind(this)
-    this.addInfoBubbles = this.addInfoBubbles.bind(this)
   }
 
   componentDidMount () {
@@ -25,20 +24,16 @@ export default class Map extends React.Component {
       useCIT: true,
       useHTTPS: true
     })
-
     const defaultLayers = platform.createDefaultLayers()
     const map = new H.Map(this.refs.map, defaultLayers.normal.map);
     const behavior = new H.mapevents.Behavior(new H.mapevents.MapEvents(map))
     const ui = H.ui.UI.createDefault(map, defaultLayers)
-
-
     var thisComp = this
-    getUserLocation(function(position) {
-        console.log('User position:', position.latitude, position.longitude)
-        thisComp.setState({
-            userLocation: position
-        })
-        thisComp.showUserLocation(map)
+    getUserLocation(function (position) {
+      thisComp.setState({
+        userLocation: position
+      })
+      thisComp.showUserLocation(map)
     })
 
     getLocations()
@@ -48,23 +43,27 @@ export default class Map extends React.Component {
         })
       })
       .then(() => {
-        this.addInfoBubbles(map,ui)
+        this.addInfoBubbles(map, ui)
         this.moveMapToAuckland(map)
       })
   }
 
   moveMapToAuckland (map) {
-    map.setCenter({lat: -36.848461, lng: 174.763336})
-    map.setZoom(14)
+    map.setCenter({lat: this.state.userLocation.latitude, lng: this.state.userLocation.longitude})
+    map.setZoom(17)
   }
 
   addInfoBubbles (map, ui) {
     const group = new H.map.Group()
     map.addObject(group)
     group.addEventListener('tap', function (evt) {
-      console.log('test')
       const bubble =  new H.ui.InfoBubble(evt.target.getPosition(), {
         content: evt.target.getData()
+      }
+      )
+      const previousBubbles = ui.getBubbles()
+      previousBubbles.forEach(function (bubs) {
+        ui.removeBubble(bubs)
       })
       ui.addBubble(bubble)
     }, false)
@@ -81,14 +80,13 @@ export default class Map extends React.Component {
     })
   }
 
-  showUserLocation(map) {
+  showUserLocation (map) {
     const svgMarkup = '<svg  width="20" height="20" xmlns="http://www.w3.org/2000/svg">' + '<circle cx="10" cy="10" r="5" stroke="red" stroke-width="1" fill="red" />' +'</svg>'
     const bearsIcon = new H.map.Icon(svgMarkup)
     const userLocation = new H.map.Marker({
       lat: this.state.userLocation.latitude,
       lng: this.state.userLocation.longitude
     }, {icon: bearsIcon})
-    console.log(this.state.userLocation)
     map.addObject(userLocation)
   }
 
