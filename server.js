@@ -3,7 +3,7 @@ var path = require('path')
 
 var app = express()
 
-const PORT = process.env.PORT || 3003
+const PORT = process.env.PORT || 3000
 
 console.log('Server loaded')
 

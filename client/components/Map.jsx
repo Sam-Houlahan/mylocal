@@ -15,8 +15,6 @@ export default class Map extends React.Component {
     this.moveMapToAuckland = this.moveMapToAuckland.bind(this)
     this.addMarkersToMap = this.addMarkersToMap.bind(this)
     this.showUserLocation = this.showUserLocation.bind(this)
-    this.addInfoBubbles = this.addInfoBubbles.bind(this)
-    this.generateDirections = this.generateDirections.bind(this)
   }
 
   componentDidMount () {
