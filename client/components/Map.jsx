@@ -52,16 +52,6 @@ export default class Map extends React.Component {
       })
   }
 
-  generateDirections (destination) {
-    navigator.geolocation.getCurrentPosition(position => {
-      this.setState({
-        end: destination,
-        start: {lat: position.coords.latitude, lng: position.coords.longitude},
-        showDirections: true
-      })
-    })
-  }
-
   moveMapToAuckland (map) {
     map.setCenter({lat: -36.848461, lng: 174.763336})
     map.setZoom(14)
@@ -105,7 +95,6 @@ export default class Map extends React.Component {
   }
 
   render () {
-    console.log(this.state.end)
     return (
         <div className='Map' ref='map'>
         </div>
